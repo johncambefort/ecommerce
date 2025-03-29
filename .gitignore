@@ -1,0 +1,5 @@
+tmp/cache/*
+
+# credentials
+config/master.key
+config/credentials.yml.enc
