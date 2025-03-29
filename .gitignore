@@ -1,5 +1,26 @@
+# js
+/public/packs
+/public/packs-test
+/public/assets
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+/.bundle
+
+/storage/*
+!/storage/.keep
+/public/uploads
+
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
 tmp/cache/*
 
 # credentials
 config/master.key
 config/credentials.yml.enc
+.env
+.env*.local
+
