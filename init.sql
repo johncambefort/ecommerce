@@ -1,0 +1,2 @@
+CREATE USER ecommerce;
+ALTER USER ecommerce WITH SUPERUSER;

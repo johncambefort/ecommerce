@@ -1,0 +1,54 @@
+services:
+  ecommerce:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+      - redis
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - gem_cache:/usr/local/bundle/gems
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+  database:
+    image: postgres:16
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - ecommerce
+      - database
+      - redis
+    volumes:
+      - .:/app
+      - gem_cache:/usr/local/bundle/gems
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+    entrypoint: ./entrypoints/sidekiq-entrypoint.sh
+  redis:
+    image: redis:7.4.2
+
+volumes:
+  gem_cache:
+  db_data:
