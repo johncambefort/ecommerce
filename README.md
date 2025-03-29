@@ -13,11 +13,12 @@ docker compose up -d
 You have been tasked with designing an inventory and promotions engine for an ecommerce software platform. As a business-to-business software platform, customers of your product can use the promotions engine to create promotions for items in their inventory.
 
 ### Item Requirements:
-- Items can be sold by weight or quantity
-- Items can be grouped into categories
+- Items can be sold by quantity
 - Items can have a brand
-- More than one item of each type of item can be added to the cart
-- Items do not have taxes for this problem.
+- Items can be sold by weight
+- Items can be **grouped** into categories
+- More than one item of each type of item can be added to the cart (you can buy multiple of the same item, i.e. quantity)
+(- Items do not have taxes for this problem.)
 
 ### Promotion Requirements:
 - Promotions can have the following types:
