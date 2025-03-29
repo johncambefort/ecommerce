@@ -6,8 +6,14 @@ To run the application:
 # setup your env file
 cp .env.example .env
 
+# Run the app
 docker compose up -d
+
+# Run migrations and seed the db with some sample data
+docker compose exec ecommerce bundle exec db:migrate db:setup
 ```
+
+You can view and interact with the API endpoints via the Swagger page, at http://localhost:3000/api-docs
 
 ### Problem Statement
 You have been tasked with designing an inventory and promotions engine for an ecommerce software platform. As a business-to-business software platform, customers of your product can use the promotions engine to create promotions for items in their inventory.
