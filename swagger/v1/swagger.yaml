@@ -7,7 +7,7 @@ host: https://localhost:3000
 paths:
   "/products":
     get:
-      summary: Show first ten products
+      summary: Index products
       responses:
         '200':
           description: products shown
@@ -32,6 +32,39 @@ paths:
                 - id
                 - name
                 - price
+  "/products/{id}":
+    get:
+      summary: Show product
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: single product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: apples
+                  price:
+                    type: number
+                    format: float
+                    example: 2.99
+                required:
+                - id
+                - name
+                - price
+        '404':
+          description: product not found
 servers:
 - url: http://localhost:3000
   variables:
