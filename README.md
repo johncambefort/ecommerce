@@ -15,6 +15,15 @@ docker compose exec ecommerce bundle exec db:migrate db:setup
 
 You can view and interact with the API endpoints via the Swagger page, at http://localhost:3000/api-docs
 
+## Tests
+
+Run API rswag tests:
+
+```sh
+docker compose exec -e RAILS_ENV=test ecommerce bundle exec rspec
+```
+
+
 ### Problem Statement
 You have been tasked with designing an inventory and promotions engine for an ecommerce software platform. As a business-to-business software platform, customers of your product can use the promotions engine to create promotions for items in their inventory.
 
