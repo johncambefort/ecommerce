@@ -10,7 +10,7 @@ cp .env.example .env
 docker compose up -d
 
 # Run migrations and seed the db with some sample data
-docker compose exec ecommerce bundle exec db:migrate db:setup
+docker compose exec ecommerce bundle exec db:setup db:migrate
 ```
 
 You can view and interact with the API endpoints via the Swagger page, at http://localhost:3000/api-docs
@@ -32,8 +32,8 @@ You have been tasked with designing an inventory and promotions engine for an ec
 - Items can have a brand
 - Items can be sold by weight
 - Items can be **grouped** into categories
-- More than one item of each type of item can be added to the cart (you can buy multiple of the same item, i.e. quantity)
-(- Items do not have taxes for this problem.)
+- More than one item of each type of item can be added to the cart
+- Items do not have taxes for this problem.
 
 ### Promotion Requirements:
 - Promotions can have the following types:

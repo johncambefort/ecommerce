@@ -32,7 +32,40 @@ RSpec.configure do |config|
             }
           }
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          product: {
+            type: :object,
+            properties: {
+              id: { type: :number, example: 1 },
+              name: { type: :string, example: 'apples' },
+              brand: { type: :string, example: 'Trader Joes' },
+              price: { type: :number, format: :float, example: 2.99 }
+            },
+            required: %w[id name brand price]
+          },
+          cart_product: {
+            type: :object,
+            properties: {
+              product: { '$ref' => '#/components/schemas/product' },
+              quantity: { type: :number, example: 5 }
+            },
+            required: %w[product quantity]
+          },
+          cart: {
+            type: :object,
+            properties: {
+              id: { type: :number, example: 1 },
+              cart_products: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/cart_product' }
+              }
+            },
+            required: %w[id cart_products]
+          }
+        }
+      }
     }
   }
 
