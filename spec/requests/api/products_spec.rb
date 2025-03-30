@@ -5,18 +5,9 @@ RSpec.describe 'Products', type: :request do
     get 'Index products' do
       produces 'application/json'
 
-      response '200', 'products shown' do
+      response '200', 'show products' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :number, example: 1 },
-                   name: { type: :string, example: 'apples' },
-                   brand: { type: :string, example: 'Trader Joes' },
-                   price: { type: :number, format: :float, example: 2.99 }
-                 }
-               },
-               required: %w[id name price]
+               items: { '$ref': '#/components/schemas/product' }
 
         let!(:product) { Product.create(name: 'mangoes', price: 9.99, brand: 'Trader Joes') }
         run_test! do |response|
@@ -36,15 +27,9 @@ RSpec.describe 'Products', type: :request do
     get 'Show product' do
       produces 'application/json'
       parameter name: :id, in: :path, type: :string
-      response '200', 'single product' do
-        schema type: :object,
-               properties: {
-                 id: { type: :number, example: 1 },
-                 name: { type: :string, example: 'apples' },
-                 brand: { type: :string, example: 'Trader Joes' },
-                 price: { type: :number, format: :float, example: 2.99 }
-               },
-               required: %w[id name price]
+
+      response '200', 'show product' do
+        schema '$ref' => '#/components/schemas/product'
 
         let!(:product) { Product.create(name: 'mangoes', price: 9.99) }
         let(:id) { product.id }

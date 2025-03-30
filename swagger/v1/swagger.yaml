@@ -10,31 +10,13 @@ paths:
       summary: Index products
       responses:
         '200':
-          description: products shown
+          description: show products
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: number
-                      example: 1
-                    name:
-                      type: string
-                      example: apples
-                    brand:
-                      type: string
-                      example: Trader Joes
-                    price:
-                      type: number
-                      format: float
-                      example: 2.99
-                required:
-                - id
-                - name
-                - price
+                  "$ref": "#/components/schemas/product"
   "/products/{id}":
     get:
       summary: Show product
@@ -46,33 +28,92 @@ paths:
           type: string
       responses:
         '200':
-          description: single product
+          description: show product
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: number
-                    example: 1
-                  name:
-                    type: string
-                    example: apples
-                  brand:
-                    type: string
-                    example: Trader Joes
-                  price:
-                    type: number
-                    format: float
-                    example: 2.99
-                required:
-                - id
-                - name
-                - price
+                "$ref": "#/components/schemas/product"
         '404':
           description: product not found
+  "/carts":
+    get:
+      summary: Index carts
+      responses:
+        '200':
+          description: show carts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cart"
+  "/carts/{id}":
+    get:
+      summary: Show cart
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: show cart
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/cart"
+        '404':
+          description: cart not found
 servers:
 - url: http://localhost:3000
   variables:
     defaultHost:
       default: http://localhost:3000
+components:
+  schemas:
+    product:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: apples
+        brand:
+          type: string
+          example: Trader Joes
+        price:
+          type: number
+          format: float
+          example: 2.99
+      required:
+      - id
+      - name
+      - brand
+      - price
+    cart_product:
+      type: object
+      properties:
+        product:
+          "$ref": "#/components/schemas/product"
+        quantity:
+          type: number
+          example: 5
+      required:
+      - product
+      - quantity
+    cart:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        cart_products:
+          type: array
+          items:
+            "$ref": "#/components/schemas/cart_product"
+      required:
+      - id
+      - cart_products
