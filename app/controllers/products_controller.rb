@@ -7,7 +7,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(id)
-    # render json: {}, status: :not_found if @product.nil?
     render json: @product.describe
   end
 

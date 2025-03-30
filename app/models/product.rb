@@ -2,7 +2,7 @@
 
 class Product < ApplicationRecord
   def describe
-    { id: id, name: name, price: price }
+    { id: id, name: name, brand: brand, price: price }
   end
 
   def buy(quantity, balance)

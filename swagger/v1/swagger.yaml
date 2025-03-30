@@ -24,6 +24,9 @@ paths:
                     name:
                       type: string
                       example: apples
+                    brand:
+                      type: string
+                      example: Trader Joes
                     price:
                       type: number
                       format: float
@@ -55,6 +58,9 @@ paths:
                   name:
                     type: string
                     example: apples
+                  brand:
+                    type: string
+                    example: Trader Joes
                   price:
                     type: number
                     format: float
