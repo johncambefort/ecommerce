@@ -110,6 +110,12 @@ components:
         id:
           type: number
           example: 1
+        total:
+          type: number
+          example: 2.99
+        discounted_total:
+          type: number
+          example: 2.99
         cart_products:
           type: array
           items:

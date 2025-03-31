@@ -57,6 +57,8 @@ RSpec.configure do |config|
             type: :object,
             properties: {
               id: { type: :number, example: 1 },
+              total: { type: :number, example: 2.99 },
+              discounted_total: { type: :number, example: 2.99 },
               cart_products: {
                 type: :array,
                 items: { '$ref' => '#/components/schemas/cart_product' }
