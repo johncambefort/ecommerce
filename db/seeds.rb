@@ -7,3 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+#
+p1 = FactoryBot.create(:product, price: 2.50)
+p2 = FactoryBot.create(:product, price: 5.99)
+cart = Cart.create
+
+CartProduct.create(cart:, product: p1, quantity: 1)
+CartProduct.create(cart:, product: p2, quantity: 2)
