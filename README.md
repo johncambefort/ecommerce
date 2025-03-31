@@ -24,6 +24,8 @@ docker compose exec -e RAILS_ENV=test ecommerce bundle exec rspec
 ```
 
 
+## Problem
+
 ### Problem Statement
 You have been tasked with designing an inventory and promotions engine for an ecommerce software platform. As a business-to-business software platform, customers of your product can use the promotions engine to create promotions for items in their inventory.
 
