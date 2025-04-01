@@ -30,7 +30,7 @@ RSpec.describe Cart, type: :model do
     end
 
     it 'does not add the product if it does not exist' do
-      expect { cart.add_product(nil, 1) }.to raise_error(Exceptions::ProductNilException)
+      expect { cart.add_product(nil, 1) }.to raise_error(ApiResponse::ProductNilException)
       expect(cart.cart_products.count).to eq(0)
     end
 
@@ -55,7 +55,7 @@ RSpec.describe Cart, type: :model do
     end
 
     it 'does nothing if the product is nil' do
-      expect { cart.remove_product(nil, 1) }.to raise_error(Exceptions::ProductNilException)
+      expect { cart.remove_product(nil, 1) }.to raise_error(ApiResponse::ProductNilException)
       expect(cart.cart_products.count).to eq(2)
     end
 

@@ -3,15 +3,19 @@
 class Product < ApplicationRecord
   has_many :carts, through: :cart_products
   has_many :cart_products
+  has_one :promotion
 
   def describe
-    { id: id, name: name, brand: brand, price: price }
+    { id:, name:, brand:, price: }
   end
 
-  def buy(quantity, balance)
-    new_balance = balance - (quantity * price)
-    return unless new_balance.negative?
+  def create_promotion(discount_type, discount, start_time, end_time)
+    raise ApiResponse::InvalidParameter if discount_type.to_sym == :percentage && (discount.negative? || discount > 1)
+    raise ApiResponse::InvalidParameter if discount <= 0
 
-    raise Exception::NegativeBalanceException
+    transaction do
+      promotion&.destroy # end any ongoing promotion
+      p = Promotion.create(discount_type:, discount:, start_time:, end_time:, product: self)
+    end
   end
 end
