@@ -5,5 +5,5 @@ module ApiResponse
 
   class InvalidParameter < ErrorResponse; end
   class ProductNilException < ErrorResponse; end
-  class UnknownPromotionException < ErrorResponse; end
+  class NotImplementedPromotion < ErrorResponse; end
 end

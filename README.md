@@ -49,7 +49,7 @@ Promotions can have the following types:
 - [x] Promotions must have a start time
 - [x] Promotions may have an end time
 - [ ] Multiple promotions can be applied to a cart if they both have a valid set of items
-- [ ] Each item is only valid for one promotion
+- [x] Each item is only valid for one promotion
 - [ ] Only one instance of a promotion can be applied at a time
 
 ### Your solution must contain:

@@ -15,9 +15,7 @@ class Promotion < ApplicationRecord
     when :percentage
       (total_price - (total_price * discount)).round(2)
     when :b1g1free
-      total_price - price_for_one ? quantity.even? : total_price
-    else
-      raise ApiResponse::UnknownPromotionException, 'Not a known promotion type!'
+      total_price - (price_for_one * (quantity / 2))
     end
   end
 end
