@@ -55,7 +55,8 @@ Promotions can have the following types:
 - [ ] Buy X Get Y discount (ex: Buy 1 get one free, buy 3 get 1 50% off)
   - [x] Buy 1 Get 1 free
 - [ ] Weight threshold discounts (ex: buy more than 100 grams and get 50% off the item)
-- [ ] Promotions can be valid for individual items, or categories (ex: 50% off of all products of X category)
+- [x] Promotions can be valid for individual items
+- [ ] Promotions can be valid for categories (ex: 50% off of all products of X category)
 - [x] Promotions must have a start time
 - [x] Promotions may have an end time
 - [ ] Multiple promotions can be applied to a cart if they both have a valid set of items
