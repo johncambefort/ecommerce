@@ -15,19 +15,24 @@ class Cart < ApplicationRecord
   end
 
   def discounted_total
-    # TODO: discounts
-    total
+    discounted_prices = cart_products.map do |cp|
+      return cp.product.price * cp.quantity if cp.product.promotion.nil?
+
+      cp.product.promotion.running.discounted_price(cp.product.price, cp.quantity)
+    end
+
+    total - discounted_prices.reduce(:+)
   end
 
   def add_product(product, quantity)
-    raise Exceptions::ProductNilException, 'Product cannot be nil!' if product.nil?
+    raise ApiResponse::ProductNilException, 'Product cannot be nil!' if product.nil?
 
     CartProduct.create(cart: self, product:, quantity:) unless quantity <= 0
   end
 
   def remove_product(product, quantity)
     cart_product = CartProduct.find_by(product:)
-    raise Exceptions::ProductNilException, 'Product cannot be nil!' if cart_product.nil?
+    raise ApiResponse::ProductNilException, 'Product cannot be nil!' if cart_product.nil?
 
     if cart_product.quantity - quantity <= 0
       cart_product.destroy
