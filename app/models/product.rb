@@ -9,16 +9,13 @@ class Product < ApplicationRecord
     { id:, name:, brand:, price: }
   end
 
-  def create_promotion(_discount_type, _discount, _start_time, _end_time)
-    raise ApiResponse::InvalidParameter if discount_type == :percentage && (discount.negative? || discount > 1)
-
-    promotion = nil
+  def create_promotion(discount_type, discount, start_time, end_time)
+    raise ApiResponse::InvalidParameter if discount_type.to_sym == :percentage && (discount.negative? || discount > 1)
+    raise ApiResponse::InvalidParameter if discount <= 0
 
     transaction do
       promotion&.destroy # end any ongoing promotion
-      promotion = Promotion.create(discount_type: discount_type.to_sym, discount:, start_time:, end_time:)
+      p = Promotion.create(discount_type:, discount:, start_time:, end_time:, product: self)
     end
-
-    promotion
   end
 end

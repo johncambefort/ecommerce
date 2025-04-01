@@ -16,12 +16,13 @@ class Cart < ApplicationRecord
 
   def discounted_total
     discounted_prices = cart_products.map do |cp|
-      return cp.product.price * cp.quantity if cp.product.promotion.nil?
+      promotion = cp.product.promotion&.running
+      next cp.product.price * cp.quantity if promotion.nil?
 
-      cp.product.promotion.running.discounted_price(cp.product.price, cp.quantity)
+      cp.product.promotion.discounted_price(cp.product.price, cp.quantity)
     end
-
-    total - discounted_prices.reduce(:+)
+    total = discounted_prices.reduce(:+).round(2)
+    total.negative? ? 0 : total
   end
 
   def add_product(product, quantity)

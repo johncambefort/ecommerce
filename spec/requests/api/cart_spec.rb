@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Carts', type: :request do
   path '/carts' do
     get 'Index carts' do
+      tags 'Cart'
       produces 'application/json'
 
       response '200', 'show carts' do
@@ -36,6 +37,7 @@ RSpec.describe 'Carts', type: :request do
 
   path '/carts/{id}' do
     get 'Show cart' do
+      tags 'Cart'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string
 

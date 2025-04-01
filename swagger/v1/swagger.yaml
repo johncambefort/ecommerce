@@ -5,39 +5,11 @@ info:
   version: v1
 host: https://localhost:3000
 paths:
-  "/products":
-    get:
-      summary: Index products
-      responses:
-        '200':
-          description: show products
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/product"
-  "/products/{id}":
-    get:
-      summary: Show product
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: show product
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/product"
-        '404':
-          description: product not found
   "/carts":
     get:
       summary: Index carts
+      tags:
+      - Cart
       responses:
         '200':
           description: show carts
@@ -50,6 +22,8 @@ paths:
   "/carts/{id}":
     get:
       summary: Show cart
+      tags:
+      - Cart
       parameters:
       - name: id
         in: path
@@ -65,6 +39,81 @@ paths:
                 "$ref": "#/components/schemas/cart"
         '404':
           description: cart not found
+  "/products":
+    get:
+      summary: Index products
+      tags:
+      - Products
+      responses:
+        '200':
+          description: show products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/product"
+  "/products/{id}":
+    get:
+      summary: Show product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: show product
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/product"
+        '404':
+          description: product not found
+  "/products/{id}/create_promotion":
+    post:
+      summary: Create a promotion
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: creates the promotion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                discount:
+                  type: float
+                  example: 1
+                discount_type:
+                  type: string
+                  enum:
+                  - flat
+                  - percentage
+                  - b1g1free
+                  example: flat
+                start_time:
+                  type: datetime
+                  example: '2025-02-01T02:05:38+00:00'
+                end_time:
+                  type: datetime
+                  example: '2026-03-02T02:05:38+00:00'
+              required:
+              - discount_type
+              - discount
+              - start_time
+              - end_time
 servers:
 - url: http://localhost:3000
   variables:

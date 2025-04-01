@@ -4,8 +4,6 @@ class Promotion < ApplicationRecord
   belongs_to :product
   enum :discount_type, { flat: 0, percentage: 1, b1g1free: 2 }
 
-  scope :running, -> { where(start_time: ..Time.zone.now).where(end_time: Time.zone.now..) }
-
   def discounted_price(price_for_one, quantity)
     total_price = price_for_one * quantity
 
@@ -17,5 +15,9 @@ class Promotion < ApplicationRecord
     when :b1g1free
       total_price - (price_for_one * (quantity / 2))
     end
+  end
+
+  def running
+    self if start_time < Time.zone.now && Time.zone.now < end_time
   end
 end
